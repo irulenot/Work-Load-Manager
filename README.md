@@ -1,5 +1,15 @@
 # Work-Load-Manager
 
+```
+ABOUT
+```
+
+I track my hours of work in terms of 52 minutes on, 17 minutes off. I thought since i'm learning a bit about fullstack development I should build a project. Automating such a tracker would be pretty nifty, going to try to make it functional for anyone interested in managing their time in such a way.
+
+```
+INSTRUCTIONS
+```
+
 node server.js to run program
 
 package.json is run with npm start, and we put a script there to be run called start, which runs
