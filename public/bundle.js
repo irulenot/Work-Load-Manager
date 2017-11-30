@@ -70,29 +70,57 @@
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var ELEMENT_START = document.querySelector('#start');
-var ELEMENT_DATA = document.querySelector('#data');
-ELEMENT_START.addEventListener('click', startTimer);
+var _elements = __webpack_require__(1);
 
-function startTimer() {
+var ELEMENTS = _interopRequireWildcard(_elements);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var workLoadDuration = 52;
+
+ELEMENTS.ELEMENT_START.addEventListener('click', function () {
     var localStorage = window.localStorage;
-
     if (localStorage.getItem('startTimeMs') == undefined) {
+        // START WORKLOAD
+        var maxTime = setTimeout(function () {
+            localStorage.removeItem('maxTime');
+            localStorage.removeItem('startTimeMs');
+            ELEMENTS.ELEMENT_START.innerHTML = 'Start Work Load';
+            endWorkload(workLoadDuration);
+        }, 3000); //workLoadDuration*60*1000
+
         localStorage.setItem('startTimeMs', Date.now());
-        ELEMENT_START.innerHTML = 'Stop Work Load';
+        localStorage.setItem('maxTime', maxTime);
+        ELEMENTS.ELEMENT_START.innerHTML = 'Stop Work Load';
     } else {
+        // END WORK LOAD MANUALLY
+        var _maxTime = localStorage.getItem('maxTime');
+        clearTimeout(_maxTime);
+        localStorage.removeItem('maxTime');
         var totalTimeInMs = Date.now() - localStorage.getItem('startTimeMs');
-        var totalTimeInMin = totalTimeInMs / 60000;
+        var totalTimeInMin = totalTimeInMs / 60000; // 1.0278666666666667 = 1min 2s = 62 seconds
         localStorage.removeItem('startTimeMs');
-        ELEMENT_START.innerHTML = 'Start Work Load';
-        console.log(totalTimeInMin);
+        ELEMENTS.ELEMENT_START.innerHTML = 'Start Work Load';
+        endWorkload(totalTimeInMin);
     }
+});
+
+function endWorkload(workTime) {
+    alert('Work load ended: ' + workTime + ';');
 }
 
-exports.default = startTimer;
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ELEMENT_START = exports.ELEMENT_START = document.querySelector('#start');
+var ELEMENT_DATA = exports.ELEMENT_DATA = document.querySelector('#data');
 
 /***/ })
 /******/ ]);
